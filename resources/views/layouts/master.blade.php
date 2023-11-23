@@ -10,7 +10,15 @@
 </head>
 
 <body>
-    <h1>Helo Wold</h1>
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Navbar</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        @yield('content')
+    </div>
 
     <script src="{{ asset('/storage/js/bootstrap.min.js') }}"></script>
 </body>

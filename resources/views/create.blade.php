@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="main-content     mt-5">
+    <div class="main-content mt-5">
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <div class="alert alert-danger">{{ $error }}</div>

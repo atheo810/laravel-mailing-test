@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $posts = Post::all();
+        return view('index', compact('posts'));
     }
 
     /**
@@ -36,7 +38,19 @@ class PostController extends Controller
             'description' => ['required'],
         ]);
 
-        dd('success');
+
+        // make structure folder updload
+        $fileName = time() . '_' . $request->image->getClientOriginalName();
+        $filePath = $request->image->storeAs('uploads', $fileName); //upload file name
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->category_id = $request->category_id;
+        $post->image = 'storage/' . $filePath; // storage/upload/filename
+        $post->save();
+
+        return redirect()->route('post.index');
     }
 
     /**

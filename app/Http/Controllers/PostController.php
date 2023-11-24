@@ -59,7 +59,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::findorFail($id);
+        return view('show', compact('post'));
     }
 
     /**
@@ -94,7 +95,7 @@ class PostController extends Controller
             $fileName = time() . '_' . $request->image->getClientOriginalName();
             $filePath = $request->image->storeAs('uploads', $fileName); //upload file name
 
-            File::delete($post->image);
+            File::delete(public_path($post->image));
             $post->image = 'storage/' . $filePath; // storage/upload/filename
         }
 
@@ -111,6 +112,8 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findorFail($id);
+        $post->delete();
+        return redirect()->route('post.index');
     }
 }

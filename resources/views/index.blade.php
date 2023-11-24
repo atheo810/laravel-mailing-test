@@ -42,7 +42,7 @@
                             <td>{{ date('d-m-y', strtotime($post->created_at)) }}</td>
                             <td>
                                 <a href="" class="btn btn-sm btn-success">Show</a>
-                                <a href="" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('post.edit', $post->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>

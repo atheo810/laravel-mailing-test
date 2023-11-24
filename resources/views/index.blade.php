@@ -9,7 +9,7 @@
                         All Posts
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                        <a href="" class="btn btn-success mx-1">Create</a>
+                        <a href="{{ route('post.create') }}" class="btn btn-success mx-1">Create</a>
                         <a href="" class="btn btn-warning mx-1">Trashed</a>
                     </div>
                 </div>

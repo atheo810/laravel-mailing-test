@@ -41,9 +41,13 @@
                             <td>{{ $post->category_id }}</td>
                             <td>{{ date('d-m-y', strtotime($post->created_at)) }}</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-success">Show</a>
+                                <a href="{{ route('post.show', $post->id) }}" class="btn btn-sm btn-success">Show</a>
                                 <a href="{{ route('post.edit', $post->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                <form action="{{ route('post.destroy', $post->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

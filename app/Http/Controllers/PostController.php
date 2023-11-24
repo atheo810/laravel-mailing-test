@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -66,7 +67,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::findorFail($id);
+        $categories = Category::all();
+        return view('edit', compact('post', 'categories'));
     }
 
     /**
@@ -74,7 +77,33 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'max:255'],
+            'category_id' => ['required', 'integer'],
+            'description' => ['required'],
+        ]);
+
+        $post = Post::findorFail($id);
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => ['required', 'max:2028', 'image'],
+            ]);
+
+            // make structure folder updload
+            $fileName = time() . '_' . $request->image->getClientOriginalName();
+            $filePath = $request->image->storeAs('uploads', $fileName); //upload file name
+
+            File::delete($post->image);
+            $post->image = 'storage/' . $filePath; // storage/upload/filename
+        }
+
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->category_id = $request->category_id;
+        $post->save();
+
+        return redirect()->route('post.index');
     }
 
     /**

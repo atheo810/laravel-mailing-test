@@ -40,9 +40,16 @@
                             <td>{{ $post->category_id }}</td>
                             <td>{{ date('d-m-y', strtotime($post->created_at)) }}</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-success">Show</a>
-                                <a href="" class="btn btn-sm btn-primary">Edit</a>
-                                <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                <div class="d-flex">
+                                    <a href="{{ route('post.restore', $post->id) }}"
+                                        class="btn btn-sm btn-success">Restore</a>
+                                    <a href="" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('post.force_delete', $post->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

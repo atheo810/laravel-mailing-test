@@ -38,7 +38,7 @@
                             </td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->description }}</td>
-                            <td>{{ $post->category_id }}</td>
+                            <td>{{ $post->category->name }}</td>
                             <td>{{ date('d-m-y', strtotime($post->created_at)) }}</td>
                             <td>
                                 <a href="{{ route('post.show', $post->id) }}" class="btn btn-sm btn-success">Show</a>
@@ -52,9 +52,9 @@
                         </tr>
                     @endforeach
 
-
                 </tbody>
             </table>
+            {{ $posts->links() }}
         </div>
     </div>
 @endsection

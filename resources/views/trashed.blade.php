@@ -29,22 +29,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <img src="https://picsum.photos/200" alt="" width="80">
-                        </td>
-                        <td>Lorem, ipsum dolor.</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, nemo?</td>
-                        <td>News</td>
-                        <td>2-25-23</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-success">Show</a>
-                            <a href="" class="btn btn-sm btn-primary">Edit</a>
-                            <a href="" class="btn btn-sm btn-danger">Delete</a>
-                        </td>
-                    </tr>
-
+                    @foreach ($posts as $post)
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>
+                                <img src="{{ asset($post->image) }}" alt="" width="80">
+                            </td>
+                            <td>{{ $post->title }}</td>
+                            <td>{{ $post->description }}</td>
+                            <td>{{ $post->category_id }}</td>
+                            <td>{{ date('d-m-y', strtotime($post->created_at)) }}</td>
+                            <td>
+                                <a href="" class="btn btn-sm btn-success">Show</a>
+                                <a href="" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

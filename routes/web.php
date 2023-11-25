@@ -20,5 +20,10 @@ Route::get('/', function () {
 
 Route::get('/post/trash', [PostController::class, 'trashed'])->name('post.trashed');
 Route::get('/post/{id}/restore', [PostController::class, 'restore'])->name('post.restore');
+Route::delete('/post/{id}/force-delete', [PostController::class, 'forceDelete'])->name('post.force_delete');
 
 Route::resource('post', PostController::class);
+
+Route::get('/unavailable', function () {
+    return view('unavailable');
+})->name('unavailable');

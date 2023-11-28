@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Mail\OrderShipped;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,3 +44,11 @@ Route::resource('post', PostController::class)->middleware('authCheck2');
 Route::get('/unavailable', function () {
     return view('unavailable');
 })->name('unavailable');
+
+
+Route::get('/send-mail', function () {
+    // Mail::raw("Disini aku bikin contoh dari pesan", function ($message) {
+    //     $message->to('test@gmail.com')->subject('noreplay');
+    Mail::send(new OrderShipped);
+    dd('success');
+});

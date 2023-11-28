@@ -1,0 +1,1 @@
+barang mu sudah terpaketan

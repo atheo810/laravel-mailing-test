@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Mail\OrderShipped;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +52,23 @@ Route::get('/send-mail', function () {
     //     $message->to('test@gmail.com')->subject('noreplay');
     Mail::send(new OrderShipped);
     dd('success');
+});
+
+
+Route::get('/get-session', function (Request $request) {
+    $data = $request->session()->all();
+    dd($data);
+});
+
+
+Route::get('/save-session', function (Request $request) {
+    $request->session()->put('user_id', '123');
+
+    return redirect('/get-session');
+});
+
+Route::get('/destroy-session', function (Request $request) {
+    $request->session()->forget('user_id');
+    // session()->flush();
+    return redirect('/get-session');
 });

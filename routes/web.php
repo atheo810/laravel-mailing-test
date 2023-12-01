@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Mail\OrderShipped;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +76,11 @@ Route::get('/destroy-session', function (Request $request) {
 
 
 Route::get('/flash-session', function (Request $request) {
-    $request->session()->flash('status', 'ture');
+    $request->session()->flash('status', 'true');
     return redirect('/get-session');
+});
+
+
+Route::get('/forget-cache', function () {
+    Cache::forget('posts');
 });
